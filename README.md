@@ -1,0 +1,114 @@
+# Library Management System
+
+The job consists of 3 tasks:
+
+1. Create a python library record system.
+2. Create a UML class diagram for the software modelling.
+3. Create a training document or presentation to explain the code and functionality of the software. So that i can learn how it all works.
+
+More detail of the task:
+
+## Task 1:
+
+Create a library record system in Python using object oriented programming concepts. It should be possible to create objects from your implemented Python classes. Each class should contain information about different parts of the system. The objects should be created from the classes and interact with each other to achieve the correct functionality of the system. There are several Python classes to be written. The system should include the following Python classes as minimum: Books, BookList, Users, UserList and Loans. See the Tasks below for specific details about each class.
+
+### Class - Books:
+
+Define a Python class with methods to do the following:
+
+1. Define a constructor to create new book records. Each record should have include the following attributes:
+
+- Randomly generated book ID, title, author, year, publisher, number of available copies and publication date.
+
+2. Define different methods to set each of the following book attributes, one method per attribute:
+
+- title, author, year, publisher, number of available copies and publication date.
+
+3. Different methods to return each the following book attribute, one method per attribute:
+
+- title, author, year, publisher, number of copies, available number of copies and publication attribute.
+
+4. The class should include error checking (e.g., exception handling).
+5. The class should be heavily documented by comments.
+
+### Class - BookList:
+
+Define a Python class with methods to do the following:
+
+1. A constructor to create new object from this class.
+2. A method to store a collection (e.g., dictionary). The collection should store book instances that are created from the Book object.
+3. A method to search through the collection and find a book by one of the following data:
+
+- title, author, publisher OR publication date.
+
+4. A method to remove a book from the collection. The book should be specified by its title.
+5. A method to return the total number of books stored in the collection.
+6. The class should include error checking (e.g., exception handling).
+7. The class should be heavily documented by comments.
+
+### Class - Users:
+
+Define a Python class with functions to do the following:
+
+1. A constructor to create a user with the following attributes:
+
+- username, firstname, surname, house number, street name, postcode, email address, and date of birth.
+
+2. A method to return the following attributes:
+
+- username, firstname, surname, house number, street name, postcode, email address, and date of birth. You should have one method per attribute.
+
+3. Different methods to edit the following attribute:
+
+- firstname, surname, email address, and date of birth. You should have one method per attribute.
+
+4. The class should include appropriate error checking.
+5. The class should have be well documented by comments.
+
+### Class - UserList:
+
+Define a Python class with functions to do the following:
+
+1. A constructor to create new object from this class.
+2. A method to store a collection (e.g., dictionary) of user instances that are created with the class Users.
+3. A method to remove a user from the collection by giving the user’s first name. This operation must inform program users if there are two or more users with same first name.
+4. A method to count the number of users in the system. This should be based on the number of user object in the collection.
+5. A method to return a user’s detail by the username.
+6. The class should include appropriate error checking (e.g., exception handling).
+7. The class should be well documented by comments.
+
+### Class - Loans:
+
+Define a Python class with methods to do the following:
+
+1. A constructor to create new object from this class.
+2. A method for a user to borrow a book. This method should have appropriate features to assign a book to a user. The information could be stored in an appropriate data structure for further processing.
+3. A method for a user to return a book. This method should un-assign a book previously assigned to a user.
+4. A method to count and return the total number of books a user is currently borrowing.
+5. A method to print out all the overdue books along with the users’ username and first name. The username and first name of the user should be retrieved through the appropriate methods in the User class.
+6. The class should include appropriate error checking (e.g., exception handling).
+7. The class should be well documented by comments.
+
+### Other features:
+
+The following features should also be included:
+
+1. Books: Modify a book’s title, author, year, and publisher and number of copies from an easy to use command line user interface.
+2. Users: Modify a user’s first name, surname, house number, street name, postcode from an easy to use command line user interface.
+
+## Task 2
+
+### Create a Class diagram:
+
+Create a UML class diagram for the software modelling. The UML diagram should contain the full system design and should reflect your system implementation.
+
+1. The UML diagram should include all the properties of the classes, the correct methods and the correct association between the classes. The diagram should reflect the system and class implementations.
+
+### Task 3
+
+Prepare a document or recorded presentation of all the features and functionalities of the software. Your presentation should show at least the following aspects of the system:
+
+- Clear view of the user interface.
+- Clear view of the source code generating the user interface.
+- Clear view of the source code of different classes you have implemented.
+- Show all the system functionalities using different types of input and the way your system handles errors and potential problems.
