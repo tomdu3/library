@@ -113,30 +113,42 @@ class BookList:
     """Represents a collection of books in the library."""
 
     def __init__(self):
+        """
+        Constructor for the BookList class.
+        It initializes an empty dictionary to store book instances.
+        """
         self.books = {}  # Dictionary to store book instances. It is empty at the beginning
 
     def add_book(self, book):
-        if book.book_id not in self.books:
-            self.books[book.book_id] = book
+        """Add a book to the collection."""
+        if book.book_id not in self.books:  # check if the book has already been added 
+            self.books[book.book_id] = book  # add the book to the dictionary
+            print(f"Book '{book.title}' by {book.author} added successfully!")
         else:
+            print("Book not added.")
             raise ValueError("Book already exists in the collection.")
 
-        if not isinstance(book, Book):
+        if not isinstance(book, Book):  # check if the book is an instance of the Book class
+            print("Book not added.")
             raise ValueError("Book must be an instance of the Book class.")
 
     def search_book(self, **kwargs):
+        """Search for a book in the collection by keyword arguments."""
         for book in self.books.values():
             if all(getattr(book, key, None) == value for key, value in kwargs.items()):
                 return book
         raise ValueError("Book not found.")
 
     def remove_book(self, id):
+        """Remove a book from the collection by its ID."""
         if id in self.books:
             del self.books[id]
         else:
             raise ValueError("Book not found in the collection.")
-    @property
+
+    @property  # decorator that makes the method total_books a property, so that it can be accessed like an attribute
     def total_books(self):
+        """Return the total number of books in the collection."""
         return len(self.books)
 
     def __str__(self):
@@ -154,6 +166,8 @@ except ValueError as e:
     print(f"Failed to add book: {e}")
 # Outputs: Failed to add book: Book already exists in the collection.
 
+book1 = Book("The Great Gatsby", "F. Scott Fitzgerald", 1925, "Scribner", 5, "1925-04-10")
+book_list.add_book(book1)
 book2 = Book("1984", "George Orwell", 1949, "Secker & Warburg", 3, "1949-06-08")
 book_list.add_book(book2)
 print(book_list)
@@ -166,8 +180,11 @@ except ValueError as e:
 # Outputs: Failed to add book: Book already exists in the collection.
 
 print(book_list)
+# book_list.search_book(title="The Great Gatsby")
+
 book_list.remove_book(book2.book_id)
 print(book_list.total_books)
+
 
 try:
     book_list.remove_book(9999)
@@ -175,6 +192,7 @@ except ValueError as e:
     print(f"Failed to remove book: {e}")
 # Outputs: Failed to remove book: Book not found in the collection.
 
+book_list.remove_book(book1.book_id)
 try: 
     book_list.search_book(title="The Great Gatsby")
 except ValueError as e:
