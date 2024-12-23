@@ -4,11 +4,11 @@ from datetime import datetime
 class Book:
     """Represents a book in the library."""
 
-    used_ids = []
+    used_ids = []  # List to store used book_ids, so that they cannot be reused
     
     def __init__(self, title, author, year, publisher, copies, publication_date):
-        self.validate_inputs(year, copies, publication_date)
-        self.book_id = self.generate_book_id()
+        self.validate_inputs(year, copies, publication_date)  # validate the inputs for number and date 
+        self.book_id = self.generate_book_id()  # generate a unique book_id
         self.title = title
         self.author = author
         self.year = year
@@ -19,10 +19,11 @@ class Book:
     
     def generate_book_id(self):
         book_id = random.randint(1000, 9999)  # generate a book_id as a random 5 digit number
-        if book_id not in self.used_ids:
-            self.used_ids.append(book_id)
-            return True
-        return False
+        while book_id in self.used_ids:  # check if the book_id has already been used
+            book_id = random.randint(1000, 9999)
+        self.used_ids.append(book_id)
+        return book_id
+        
 
     def validate_inputs(self, year, copies, publication_date):
         """Validate the inputs for the Book instance."""
