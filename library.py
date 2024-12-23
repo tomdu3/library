@@ -18,15 +18,21 @@ class Book:
         self.publication_date = publication_date
     
     def generate_book_id(self):
+        """Generate a unique book_id."""
         book_id = random.randint(1000, 9999)  # generate a book_id as a random 5 digit number
-        while book_id in self.used_ids:  # check if the book_id has already been used
-            book_id = random.randint(1000, 9999)
-        self.used_ids.append(book_id)
+        while book_id in self.used_ids:  # check if the book_id has already been used and regenerates a new one
+            book_id = random.randint(1000, 9999)  # generate a new book_id
+        self.used_ids.append(book_id)  # add the book_id to the used_ids list, so it can be checked later
         return book_id
         
 
     def validate_inputs(self, year, copies, publication_date):
-        """Validate the inputs for the Book instance."""
+        """
+        Validates the inputs for the Book instance:
+        - year should be a number
+        - copies should be a number
+        - publication_date should be in the format YYYY-MM-DD
+        """
         if not isinstance(year, int):
             raise ValueError(f"'year' should be a number. Provided: {year}")
         if not isinstance(copies, int):
@@ -37,40 +43,52 @@ class Book:
             raise ValueError(f"'publication_date' should be in the format YYYY-MM-DD. Provided: {publication_date}")
 
     def set_title(self, title):
+        """Set the title of the book."""
         self.title = title
 
     def get_title(self):
+        """Get the title of the book."""
         return self.title
 
     def set_author(self, author):
+        """Set the author of the book."""
         self.author = author
 
     def get_author(self):
+        """Get the author of the book."""
         return self.author
 
     def set_year(self, year):
+        """Set the year of the book."""
         self.year = year
 
     def get_year(self):
+        """Get the year of the book."""
         return self.year
 
     def set_publisher(self, publisher):
+        """Set the publisher of the book."""
         self.publisher = publisher
 
     def get_publisher(self):
+        """Get the publisher of the book."""
         return self.publisher
 
     def set_copies(self, copies):
+        """Set the number of copies of the book."""
         self.copies = copies
         self.available_copies = copies
 
     def get_copies(self):
+        """Get the number of copies of the book."""
         return self.copies
 
     def get_available_copies(self):
+        """Get the number of available copies of the book."""
         return self.available_copies
 
     def __str__(self):
+        """Return a string representation of the Book instance."""
         return f"Book: {self.title}, Author: {self.author}, Year: {self.year}, Publisher: {self.publisher}, Copies: {self.copies}, Available Copies: {self.available_copies}"
 
 # Testing of the Book class
@@ -95,13 +113,16 @@ class BookList:
     """Represents a collection of books in the library."""
 
     def __init__(self):
-        self.books = {}
+        self.books = {}  # Dictionary to store book instances. It is empty at the beginning
 
     def add_book(self, book):
         if book.book_id not in self.books:
             self.books[book.book_id] = book
         else:
             raise ValueError("Book already exists in the collection.")
+
+        if not isinstance(book, Book):
+            raise ValueError("Book must be an instance of the Book class.")
 
     def search_book(self, **kwargs):
         for book in self.books.values():
