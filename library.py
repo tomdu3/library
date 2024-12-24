@@ -325,27 +325,161 @@ except ValueError as e:
 # Outputs: Failed to create user: Invalid date of birth
 
 print(user.usernames)
-user = User("jhdoe", "John", "Doe", 123, "Main Street", "12345", "jdoe@me.com", "1990-01-01")
-print(user)
+user1 = User("jhdoe", "John", "Doe", 123, "Main Street", "12345", "jdoe@me.com", "1990-01-01")
+print(user1)
 
-user = User("jodoe", "John", "Doe", 123, "Main Street", "12345", "jdoe@me.com", "1990-01-01")
-user.set_firstname("Jane")
-print(user)
+user2 = User("jodoe", "John", "Doe", 123, "Main Street", "12345", "jdoe@me.com", "1990-01-01")
+user2.set_firstname("Jane")
+print(user2)
 
-user = User("johdoe", "John", "Doe", 123, "Main Street", "12345", "jdoe@me.com", "1990-01-01")
-user.set_lastname("Doe")
-print(user)
+user3 = User("johdoe", "John", "Doe", 123, "Main Street", "12345", "jdoe@me.com", "1990-01-01")
+user3.set_lastname("Doe")
+print(user3)
 
-user = User("johndoe", "John", "Doe", 123, "Main Street", "12345", "jdoe@me.com", "1990-01-01")
-user.set_address(456, "Main Street", "12345")
-print(user)
+user4 = User("johndoe", "John", "Doe", 123, "Main Street", "12345", "jdoe@me.com", "1990-01-01")
+user4.set_address(456, "Main Street", "12345")
+print(user4)
 
-user = User("jjdoe", "John", "Doe", 123, "Main Street", "12345", "jdoe@me.com", "1990-01-01")
-user.set_email("jdoe@me.com")
-print(user)
+user5 = User("jjdoe", "John", "Doe", 123, "Main Street", "12345", "jdoe@me.com", "1990-01-01")
+user5.set_email("jdoe@me.com")
+print(user5)
 
-print(user.usernames)
+print(user5.usernames)
 
 ################################
 # End of testing of User class #
+################################
+
+
+class UserList:
+    """Represents a collection of users."""
+
+    def __init__(self):
+        self.users = {}
+
+    def add_user(self, user):
+        if user.username not in self.users:
+            self.users[user.username] = user
+        else:
+            raise ValueError("User already exists.")
+
+    def remove_user(self, firstname):
+        matches = [user for user in self.users.values() if user.firstname == firstname]
+        if len(matches) == 1:
+            del self.users[matches[0].username]
+        elif len(matches) > 1:
+            for user in matches:
+                print(user)
+            raise ValueError("Multiple users found with this first name.")
+        else:
+            raise ValueError("User not found.")
+
+    def count_users(self):
+        return len(self.users)
+    
+    def __str__(self):
+        return f"UserList: {[(user.username, user.firstname) for user in self.users.values()]}, Total Users: {self.count_users()}"
+
+#################################
+# Testing of the UserList class #
+#################################
+
+user_list = UserList()
+
+try:
+    # add user, user1, user2, user3, user4, user5
+    user_list.add_user(user1)
+    user_list.add_user(user2)
+    user_list.add_user(user3)
+    user_list.add_user(user4)
+    user_list.add_user(user5)
+    print(user_list)
+except ValueError as e:
+    print(f"Failed to add user: {e}")
+# Outputs: Failed to add user: User already exists.
+
+try:
+    user_list.remove_user("John")
+except ValueError as e:
+    print(f"Failed to remove user: {e}")
+# Outputs: Failed to remove user: User not found.
+
+print(user_list)
+print(user_list.count_users())
+
+####################################
+# End of testing of UserList class #
+####################################
+
+
+class Loan:
+    """Represents loans of books to users."""
+
+    def __init__(self):
+        self.loans = {}  # dictionary to store loans
+
+    def borrow_book(self, username, book):
+        if book.available_copies > 0:  # check if the book is available
+            book.available_copies -= 1
+            if username not in self.loans:  # check if the user has borrowed any books
+                self.loans[username] = []  # create a new list for the user
+            self.loans[username].append(book)  # add the book to the user's list
+        else:
+            raise ValueError("No available copies.")
+
+    def return_book(self, username, book):
+        """Returns a book borrowed by a user."""
+        if username in self.loans and book in self.loans[username]:  # check if the book is borrowed by the user
+            book.available_copies += 1
+            self.loans[username].remove(book)
+        else:
+            raise ValueError("Book not borrowed by user.")
+
+    def user_books_count(self, username):
+        """Returns the number of books borrowed by a user."""
+        return len(self.loans.get(username, []))  # default to an empty list if user not found
+
+    def __str__(self):
+        return f"Loan: {[(username, [book.title for book in books]) for username, books in self.loans.items()]}"
+
+##############################
+# Testing of the Loan class  #
+##############################
+
+loan = Loan()
+try:
+    loan.borrow_book("jdoe", book1)
+except ValueError as e:
+    print(f"Failed to borrow book: {e}")
+# Outputs: Failed to borrow book: No available copies.
+
+try:
+    loan.return_book("jdoe", book1)
+except ValueError as e:
+    print(f"Failed to return book: {e}")
+# Outputs: Failed to return book: Book not borrowed by user.
+
+book3 = Book("Romeo and Juliet", "William Shakespeare", 2012, "Penguin Classics", 5, "1597-05-16")
+# loan.borrow_book("jdoe", book1)
+loan.borrow_book("jdoe", book2)
+loan.borrow_book("jdoe", book3)
+
+try:
+    loan.return_book("jdoe", book1)
+except ValueError as e:
+    print(f"Failed to return book: {e}")
+# Outputs: Failed to return book: Book not borrowed by user.
+
+try:
+    book1.available_copies = 0
+    loan.borrow_book("jdoe", book1)
+except ValueError as e:
+    print(f"Failed to borrow book: {e}")
+# Outputs: Failed to borrow book: No available copies.
+
+print(loan.user_books_count("jdoe"))
+print(loan)
+
+################################
+# End of testing of Loan Class #
 ################################
