@@ -91,7 +91,9 @@ class Book:
         """Return a string representation of the Book instance."""
         return f"Book: {self.title}, Author: {self.author}, Year: {self.year}, Publisher: {self.publisher}, Copies: {self.copies}, Available Copies: {self.available_copies}"
 
-# Testing of the Book class
+#############################
+# Testing of the Book class #
+#############################
 
 try:
     book = Book("The Great Gatsby", "F. Scott Fitzgerald", "1925", "Scribner", 5, "1925-04-10")
@@ -108,6 +110,10 @@ except ValueError as e:
 
 print(book)
 print(book.used_ids)
+
+################################
+# End of testing of Book class #
+################################
 
 class BookList:
     """Represents a collection of books in the library."""
@@ -154,7 +160,9 @@ class BookList:
     def __str__(self):
         return "No books in the collection" if len(self.books) == 0 else f"BookList: {[(book.title,book.author) for book in self.books.values()]}, Total Books: {self.total_books}"
 
-# Testing of the BookList class
+#################################
+# Testing of the BookList class #
+#################################
 
 try:
     book_list = BookList()
@@ -203,3 +211,141 @@ except ValueError as e:
 
 print(book_list)
 print(book_list.total_books)
+
+####################################
+# End of testing of BookList class #
+####################################
+
+class User:
+    """Represents a user of the library."""
+
+    usernames = []  # List to store existing usernames
+
+    def __init__(self, username, firstname, surname, house_number, street_name, postcode, email, dob):
+        self.check_username(username)
+        self.username = username
+        self.firstname = firstname
+        self.surname = surname
+        self.house_number = house_number
+        self.street_name = street_name
+        self.postcode = postcode
+        self.validate_email(email)
+        self.email = email
+        self.validate_dob(dob)
+        self.dob = dob
+        User.usernames.append(username)
+
+
+    def check_username(self, username):
+        if username in User.usernames:  # check if the username already exists on the list
+            raise ValueError("Username already exists")
+
+    def get_username(self):
+        """Returns the username of the user."""
+        return self.username
+
+    def get_firstname(self):
+        """Returns the first name of the user."""
+        return self.firstname
+
+    def set_firstname(self, firstname):
+        """Sets the first name of the user."""
+        self.firstname = firstname
+
+    def get_lastname(self):
+        """Returns the last name of the user."""
+        return self.surname
+
+    def set_lastname(self, surname):
+        """Sets the last name of the user."""
+        self.surname = surname
+
+    def get_address(self):
+        """Returns the address of the user."""
+        return f"{self.house_number} {self.street_name}, {self.postcode}"
+
+    def set_address(self, house_number, street_name, postcode):
+        """Sets the address of the user."""
+        self.house_number = house_number
+        self.street_name = street_name
+        self.postcode = postcode
+
+    def validate_email(self, email):
+        if "@" not in email or "." not in email:  # this is not a perfect validator, but it's enough for this example
+            raise ValueError("Invalid email address")
+    
+    def get_email(self):
+        """Returns the email address of the user."""
+        return self.email
+    
+    def set_email(self, email):
+        """Sets the email address of the user."""
+        self.email = email
+    
+    def validate_dob(self, dob):
+        try:
+            datetime.strptime(dob, "%Y-%m-%d")  # a valid date is in the format YYYY-MM-DD
+        except ValueError:
+            raise ValueError("Invalid date of birth")
+
+    def get_dob(self):
+        """Returns the date of birth of the user."""
+        return self.dob
+    
+    def set_dob(self, dob):
+        """Sets the date of birth of the user."""
+        self.dob = dob
+
+    def __str__(self):
+        return f"User: {self.username}, First Name: {self.firstname}, Last Name: {self.surname}, Address: {self.get_address()}, Email: {self.email}, Date of Birth: {self.dob}"
+
+#############################
+# Testing of the User class #
+#############################
+
+try:
+    user = User("jdoe", "John", "Doe", 123, "Main Street", "12345", "jdoe@me.com", "1990-01-01")
+    print(user)
+except ValueError as e:
+    print(f"Failed to create user: {e}")
+# Outputs: Failed to create user: Username already exists
+
+try:
+    user = User("jdoe", "John", "Doe", 123, "Main Street", "12345", "jdoe@me.com", "1990-01-01")
+    print(user)
+except ValueError as e:
+    print(f"Failed to create user: {e}")
+# Outputs: Failed to create user: Invalid email address
+
+try:
+    user = User("jdoe", "John", "Doe", 123, "Main Street", "12345", "jdoe@me.com", "1990-01-01")
+    print(user)
+except ValueError as e:
+    print(f"Failed to create user: {e}")
+# Outputs: Failed to create user: Invalid date of birth
+
+print(user.usernames)
+user = User("jhdoe", "John", "Doe", 123, "Main Street", "12345", "jdoe@me.com", "1990-01-01")
+print(user)
+
+user = User("jodoe", "John", "Doe", 123, "Main Street", "12345", "jdoe@me.com", "1990-01-01")
+user.set_firstname("Jane")
+print(user)
+
+user = User("johdoe", "John", "Doe", 123, "Main Street", "12345", "jdoe@me.com", "1990-01-01")
+user.set_lastname("Doe")
+print(user)
+
+user = User("johndoe", "John", "Doe", 123, "Main Street", "12345", "jdoe@me.com", "1990-01-01")
+user.set_address(456, "Main Street", "12345")
+print(user)
+
+user = User("jjdoe", "John", "Doe", 123, "Main Street", "12345", "jdoe@me.com", "1990-01-01")
+user.set_email("jdoe@me.com")
+print(user)
+
+print(user.usernames)
+
+################################
+# End of testing of User class #
+################################
