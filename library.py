@@ -1,4 +1,5 @@
 import random
+import sys
 from datetime import datetime
 
 class Book:
@@ -89,7 +90,7 @@ class Book:
 
     def __str__(self):
         """Return a string representation of the Book instance."""
-        return f"Book: {self.title}, Author: {self.author}, Year: {self.year}, Publisher: {self.publisher}, Copies: {self.copies}, Available Copies: {self.available_copies}"
+        return f"id: {self.book_id}, Book: {self.title}, Author: {self.author}, Year: {self.year}, Publisher: {self.publisher}, Copies: {self.copies}, Available Copies: {self.available_copies}"
 
 #############################
 # Testing of the Book class #
@@ -483,3 +484,5 @@ print(loan)
 ################################
 # End of testing of Loan Class #
 ################################
+
+# TODO: Make a dashboard of a library
