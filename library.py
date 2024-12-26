@@ -486,3 +486,216 @@ print(loan)
 ################################
 
 # TODO: Make a dashboard of a library
+
+
+class LibraryDashboard:
+    """Dashboard for managing the library system."""
+    
+    def __init__(self):
+        self.book_list = BookList()
+        self.user_list = UserList()
+        self.loan = Loan()
+
+    def display_menu(self):
+        """Display the main menu."""
+        print("\nLibrary Management System Dashboard")
+        print("1. Manage Books")
+        print("2. Manage Users")
+        print("3. Manage Loans")
+        print("4. Exit")
+
+    def manage_books(self):
+        """Menu for managing books."""
+        while True:
+            print("\nManage Books")
+            print("1. Add Book")
+            print("2. Search Book")
+            print("3. Remove Book")
+            print("4. View All Books")
+            print("5. Go Back")
+            choice = input("Enter your choice: ")
+
+            if choice == "1":
+                self.add_book()
+            elif choice == "2":
+                self.search_book()
+            elif choice == "3":
+                self.remove_book()
+            elif choice == "4":
+                self.view_all_books()
+            elif choice == "5":
+                break
+            else:
+                print("Invalid choice. Please try again.")
+
+    def manage_users(self):
+        """Menu for managing users."""
+        while True:
+            print("\nManage Users")
+            print("1. Add User")
+            print("2. Remove User")
+            print("3. View All Users")
+            print("4. Go Back")
+            choice = input("Enter your choice: ")
+
+            if choice == "1":
+                self.add_user()
+            elif choice == "2":
+                self.remove_user()
+            elif choice == "3":
+                self.view_all_users()
+            elif choice == "4":
+                break
+            else:
+                print("Invalid choice. Please try again.")
+
+    def manage_loans(self):
+        """Menu for managing loans."""
+        while True:
+            print("\nManage Loans")
+            print("1. Borrow Book")
+            print("2. Return Book")
+            print("3. View User Loans")
+            print("4. View All Books")
+            print("5. Go Back")
+            choice = input("Enter your choice: ")
+
+            if choice == "1":
+                self.borrow_book()
+            elif choice == "2":
+                self.return_book()
+            elif choice == "3":
+                self.view_user_loans()
+            elif choice == "4":
+                self.view_all_books()
+            elif choice == "5":
+                break
+            else:
+                print("Invalid choice. Please try again.")
+
+    # Book Management Functions
+    def add_book(self):
+        """Add a new book to the library."""
+        try:
+            title = input("Enter title: ")
+            author = input("Enter author: ")
+            year = int(input("Enter year: "))
+            publisher = input("Enter publisher: ")
+            copies = int(input("Enter number of copies: "))
+            publication_date = input("Enter publication date (YYYY-MM-DD): ")
+            book = Book(title, author, year, publisher, copies, publication_date)
+            self.book_list.add_book(book)
+        except ValueError as e:
+            print(f"Error: {e}")
+
+    def search_book(self):
+        """Search for a book."""
+        try:
+            print("Search by: title, author, publisher, or publication_date")
+            key = input("Enter field name: ")
+            value = input("Enter value to search: ")
+            book = self.book_list.search_book(**{key: value})
+            print(book)
+        except ValueError as e:
+            print(f"Error: {e}")
+
+    def remove_book(self):
+        """Remove a book from the library."""
+        try:
+            title = input("Enter title of the book to remove: ")
+            self.book_list.remove_book(title)
+        except ValueError as e:
+            print(f"Error: {e}")
+
+    def view_all_books(self):
+        """View all books in the library."""
+        print(self.book_list)
+
+    # User Management Functions
+    def add_user(self):
+        """Add a new user to the library."""
+        try:
+            username = input("Enter username: ")
+            firstname = input("Enter first name: ")
+            surname = input("Enter last name: ")
+            house_number = input("Enter house number: ")
+            street_name = input("Enter street name: ")
+            postcode = input("Enter postcode: ")
+            email = input("Enter email: ")
+            dob = input("Enter date of birth (YYYY-MM-DD): ")
+            user = User(username, firstname, surname, house_number, street_name, postcode, email, dob)
+            self.user_list.add_user(user)
+        except ValueError as e:
+            print(f"Error: {e}")
+
+    def remove_user(self):
+        """Remove a user from the library."""
+        try:
+            firstname = input("Enter first name of the user to remove: ")
+            self.user_list.remove_user(firstname)
+        except ValueError as e:
+            print(f"Error: {e}")
+
+    def view_all_users(self):
+        """View all users."""
+        print(self.user_list)
+
+    # Loan Management Functions
+    def borrow_book(self):
+        """Borrow a book."""
+        try:
+            username = input("Enter username: ")
+            book_id = int(input("Enter book ID: "))
+            book = self.book_list.books.get(book_id)
+            if not book:
+                raise ValueError("Book not found.")
+            self.loan.borrow_book(username, book)
+            print(f"Book '{book.title}' borrowed by {username}.")
+        except ValueError as e:
+            print(f"Error: {e}")
+
+    def return_book(self):
+        """Return a book."""
+        try:
+            username = input("Enter username: ")
+            book_id = int(input("Enter book ID: "))
+            book = self.book_list.books.get(book_id)
+            if not book:
+                raise ValueError("Book not found.")
+            self.loan.return_book(username, book)
+            print(f"Book '{book.title}' returned by {username}.")
+        except ValueError as e:
+            print(f"Error: {e}")
+
+    def view_user_loans(self):
+        """View books borrowed by a user."""
+        username = input("Enter username: ")
+        user_loans = self.loan.loans.get(username, [])
+        if user_loans:
+            print(f"Books borrowed by {username}: {[book.title for book in user_loans]}")
+        else:
+            print(f"No books borrowed by {username}.")
+
+    # Run Dashboard
+    def run(self):
+        """Run the dashboard."""
+        while True:
+            self.display_menu()
+            choice = input("Enter your choice: ")
+            if choice == "1":
+                self.manage_books()
+            elif choice == "2":
+                self.manage_users()
+            elif choice == "3":
+                self.manage_loans()
+            elif choice == "4":
+                print("Exiting the system. Goodbye!")
+                sys.exit(0)
+            else:
+                print("Invalid choice. Please try again.")
+
+# Initialize and run the dashboard
+dashboard = LibraryDashboard()
+dashboard.run()
+
+
