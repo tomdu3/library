@@ -1,170 +1,146 @@
-# Library Record System - UML Class Diagram
 
-```plaintext
-+-----------------+
-|     Book        |
-+-----------------+
-| - book_id       |
-| - title         |
-| - author        |
-| - year          |
-| - publisher     |
-| - copies        |
-| - available_copies |
-| - publication_date |
-+-----------------+
-| + set_title()   |
-| + get_title()   |
-| + set_author()  |
-| + get_author()  |
-| + set_year()    |
-| + get_year()    |
-| + set_publisher() |
-| + get_publisher() |
-| + set_copies()  |
-| + get_copies()  |
-| + get_available_copies() |
-+-----------------+
+# UML Class Diagram: Library Management System
 
-+-----------------+
-|   BookList      |
-+-----------------+
-| - books         |
-+-----------------+
-| + add_book()    |
-| + search_book() |
-| + remove_book() |
-| + total_books() |
-+-----------------+
-
-+-----------------+
-|     User        |
-+-----------------+
-| - username      |
-| - firstname     |
-| - surname       |
-| - house_number  |
-| - street_name   |
-| - postcode      |
-| - email         |
-| - dob           |
-+-----------------+
-| + get_username()|
-| + get_firstname() |
-| + set_firstname() |
-+-----------------+
-
-+-----------------+
-|   UserList      |
-+-----------------+
-| - users         |
-+-----------------+
-| + add_user()    |
-| + remove_user() |
-| + count_users() |
-+-----------------+
-
-+-----------------+
-|     Loan        |
-+-----------------+
-| - loans         |
-+-----------------+
-| + borrow_book() |
-| + return_book() |
-| + user_books_count() |
-+-----------------+
-
-```
-
-# Library Record System - UML Class Diagram
+## Classes
 
 ### Book
-
-| Attribute        | Type     | Description                          |
-| ---------------- | -------- | ------------------------------------ |
-| book_id          | int      | Randomly generated book ID           |
-| title            | str      | Title of the book                    |
-| author           | str      | Author of the book                   |
-| year             | int      | Year of publication                  |
-| publisher        | str      | Publisher of the book                |
-| copies           | int      | Total number of copies               |
-| available_copies | int      | Number of copies currently available |
-| publication_date | str/date | Publication date of the book         |
-
-| Method                 | Description                        |
-| ---------------------- | ---------------------------------- |
-| set_title()            | Set the title of the book          |
-| get_title()            | Get the title of the book          |
-| set_author()           | Set the author of the book         |
-| get_author()           | Get the author of the book         |
-| set_year()             | Set the publication year           |
-| get_year()             | Get the publication year           |
-| set_publisher()        | Set the publisher of the book      |
-| get_publisher()        | Get the publisher of the book      |
-| set_copies()           | Set the total number of copies     |
-| get_copies()           | Get the total number of copies     |
-| get_available_copies() | Get the number of available copies |
-
----
+```
++----------------------------+
+|           Book             |
++----------------------------+
+| - used_ids: List[int]      |
++----------------------------+
+| + __init__(...)            |
+| + generate_book_id(): int  |
+| + validate_inputs(...)     |
+| + set_title(title: str)    |
+| + get_title(): str         |
+| + set_author(author: str)  |
+| + get_author(): str        |
+| + set_year(year: int)      |
+| + get_year(): int          |
+| + set_publisher(...)       |
+| + get_publisher(): str     |
+| + set_copies(copies: int)  |
+| + get_copies(): int        |
+| + get_available_copies(): int |
+| + __str__(): str           |
++----------------------------+
+```
 
 ### BookList
-
-| Attribute | Type | Description                  |
-| --------- | ---- | ---------------------------- |
-| books     | dict | A dictionary of book objects |
-
-| Method        | Description                               |
-| ------------- | ----------------------------------------- |
-| add_book()    | Add a book to the collection              |
-| search_book() | Search for a book by title, author, etc.  |
-| remove_book() | Remove a book from the collection         |
-| total_books() | Get the total number of books in the list |
-
----
+```
++----------------------------+
+|         BookList           |
++----------------------------+
+| - books: Dict[int, Book]   |
++----------------------------+
+| + __init__()               |
+| + add_book(book: Book)     |
+| + search_book(**kwargs): Book |
+| + remove_book(book_id: int) |
+| + total_books: int (property) |
+| + __str__(): str           |
++----------------------------+
+```
 
 ### User
-
-| Attribute    | Type     | Description                    |
-| ------------ | -------- | ------------------------------ |
-| username     | str      | Unique identifier for the user |
-| firstname    | str      | User's first name              |
-| surname      | str      | User's last name               |
-| house_number | int      | User's house number            |
-| street_name  | str      | Name of the user's street      |
-| postcode     | str      | User's postal code             |
-| email        | str      | User's email address           |
-| dob          | str/date | User's date of birth           |
-
-| Method          | Description                    |
-| --------------- | ------------------------------ |
-| get_username()  | Get the username of the user   |
-| get_firstname() | Get the first name of the user |
-| set_firstname() | Set the first name of the user |
-
----
+```
++----------------------------+
+|           User             |
++----------------------------+
+| - usernames: List[str]     |
++----------------------------+
+| + __init__(...)            |
+| + check_username(username: str) |
+| + get_username(): str      |
+| + get_firstname(): str     |
+| + set_firstname(firstname: str) |
+| + get_lastname(): str      |
+| + set_lastname(lastname: str) |
+| + get_address(): str       |
+| + set_address(...)         |
+| + validate_email(email: str) |
+| + get_email(): str         |
+| + set_email(email: str)    |
+| + validate_dob(dob: str)   |
+| + get_dob(): str           |
+| + set_dob(dob: str)        |
+| + __str__(): str           |
++----------------------------+
+```
 
 ### UserList
-
-| Attribute | Type | Description                  |
-| --------- | ---- | ---------------------------- |
-| users     | dict | A dictionary of user objects |
-
-| Method        | Description                               |
-| ------------- | ----------------------------------------- |
-| add_user()    | Add a user to the collection              |
-| remove_user() | Remove a user by their first name         |
-| count_users() | Get the total number of users in the list |
-
----
+```
++----------------------------+
+|         UserList           |
++----------------------------+
+| - users: Dict[str, User]   |
++----------------------------+
+| + __init__()               |
+| + add_user(user: User)     |
+| + remove_user(firstname: str) |
+| + count_users(): int       |
+| + __str__(): str           |
++----------------------------+
+```
 
 ### Loan
+```
++----------------------------+
+|           Loan             |
++----------------------------+
+| - loans: Dict[str, List[Book]] |
++----------------------------+
+| + __init__()               |
+| + borrow_book(username: str, book: Book) |
+| + return_book(username: str, book: Book) |
+| + user_books_count(username: str): int |
+| + __str__(): str           |
++----------------------------+
+```
 
-| Attribute | Type | Description                  |
-| --------- | ---- | ---------------------------- |
-| loans     | dict | A dictionary of loaned books |
+### LibraryDashboard
+```
++----------------------------+
+|    LibraryDashboard        |
++----------------------------+
+| - book_list: BookList      |
+| - user_list: UserList      |
+| - loan: Loan               |
++----------------------------+
+| + __init__()               |
+| + display_menu()           |
+| + manage_books()           |
+| + manage_users()           |
+| + manage_loans()           |
+| + add_book()               |
+| + search_book()            |
+| + remove_book()            |
+| + view_all_books()         |
+| + add_user()               |
+| + remove_user()            |
+| + view_all_users()         |
+| + borrow_book()            |
+| + return_book()            |
+| + view_user_loans()        |
+| + run()                    |
++----------------------------+
+```
 
-| Method             | Description                                 |
-| ------------------ | ------------------------------------------- |
-| borrow_book()      | Borrow a book for a user                    |
-| return_book()      | Return a borrowed book                      |
-| user_books_count() | Get the number of books a user has borrowed |
+## Relationships
+
+- **LibraryDashboard** uses:
+  - `BookList`
+  - `UserList`
+  - `Loan`
+
+- **BookList** contains:
+  - `Book`
+
+- **Loan** references:
+  - `Book`
+  - `User`
+
+- **UserList** contains:
+  - `User`
