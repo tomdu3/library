@@ -1,6 +1,8 @@
 # Library Management System
 
-The job consists of 3 tasks:
+## Project Description
+
+The project consists of 3 tasks:
 
 1. Create a python library record system.
 2. Create a UML class diagram for the software modelling.
@@ -8,11 +10,11 @@ The job consists of 3 tasks:
 
 More detail of the task:
 
-## Task 1:
+### Task 1:
 
 Create a library record system in Python using object oriented programming concepts. It should be possible to create objects from your implemented Python classes. Each class should contain information about different parts of the system. The objects should be created from the classes and interact with each other to achieve the correct functionality of the system. There are several Python classes to be written. The system should include the following Python classes as minimum: Books, BookList, Users, UserList and Loans. See the Tasks below for specific details about each class.
 
-### Class - Books:
+#### Class - Books:
 
 Define a Python class with methods to do the following:
 
@@ -31,7 +33,7 @@ Define a Python class with methods to do the following:
 4. The class should include error checking (e.g., exception handling).
 5. The class should be heavily documented by comments.
 
-### Class - BookList:
+#### Class - BookList:
 
 Define a Python class with methods to do the following:
 
@@ -46,7 +48,7 @@ Define a Python class with methods to do the following:
 6. The class should include error checking (e.g., exception handling).
 7. The class should be heavily documented by comments.
 
-### Class - Users:
+#### Class - Users:
 
 Define a Python class with functions to do the following:
 
@@ -65,7 +67,7 @@ Define a Python class with functions to do the following:
 4. The class should include appropriate error checking.
 5. The class should have be well documented by comments.
 
-### Class - UserList:
+#### Class - UserList:
 
 Define a Python class with functions to do the following:
 
@@ -77,7 +79,7 @@ Define a Python class with functions to do the following:
 6. The class should include appropriate error checking (e.g., exception handling).
 7. The class should be well documented by comments.
 
-### Class - Loans:
+#### Class - Loans:
 
 Define a Python class with methods to do the following:
 
@@ -96,9 +98,9 @@ The following features should also be included:
 1. Books: Modify a book’s title, author, year, and publisher and number of copies from an easy to use command line user interface.
 2. Users: Modify a user’s first name, surname, house number, street name, postcode from an easy to use command line user interface.
 
-## Task 2
+### Task 2
 
-### Create a Class diagram:
+#### Create a Class diagram:
 
 Create a UML class diagram for the software modelling. The UML diagram should contain the full system design and should reflect your system implementation.
 
@@ -112,3 +114,48 @@ Prepare a document or recorded presentation of all the features and functionalit
 - Clear view of the source code generating the user interface.
 - Clear view of the source code of different classes you have implemented.
 - Show all the system functionalities using different types of input and the way your system handles errors and potential problems.
+
+## Testing
+
+The project tests are written in pytest and placed in `test_library.py`. For tests to be run, pytest must be installed.
+
+`pip install pytest`
+
+To run the tests, execute the following command in the project directory:
+
+`pytest` or `pytest --verbose`
+
+This is the output of the tests:
+```bash
+============================= test session starts ==============================
+platform linux -- Python 3.12.7, pytest-7.4.4, pluggy-1.0.0 -- /home/tom/anaconda3/bin/python
+cachedir: .pytest_cache
+rootdir: /home/tom/upwork/terry/library
+plugins: anyio-4.2.0
+collecting ... collected 21 items
+
+test_library.py::TestBook::test_book_id_uniqueness PASSED                [  4%]
+test_library.py::TestBook::test_invalid_year PASSED                      [  9%]
+test_library.py::TestBook::test_valid_book_creation PASSED               [ 14%]
+test_library.py::TestBookList::test_add_book PASSED                      [ 19%]
+test_library.py::TestBookList::test_add_duplicate_book PASSED            [ 23%]
+test_library.py::TestBookList::test_remove_book PASSED                   [ 28%]
+test_library.py::TestBookList::test_remove_nonexistent_book PASSED       [ 33%]
+test_library.py::TestBookList::test_search_nonexistent_book PASSED       [ 38%]
+test_library.py::TestUser::test_duplicate_username PASSED                [ 42%]
+test_library.py::TestUser::test_invalid_dob PASSED                       [ 47%]
+test_library.py::TestUser::test_invalid_email PASSED                     [ 52%]
+test_library.py::TestUser::test_valid_user_creation PASSED               [ 57%]
+test_library.py::TestUserList::test_add_duplicate_user PASSED            [ 61%]
+test_library.py::TestUserList::test_add_user PASSED                      [ 66%]
+test_library.py::TestUserList::test_remove_nonexistent_user PASSED       [ 71%]
+test_library.py::TestUserList::test_remove_user PASSED                   [ 76%]
+test_library.py::TestLoan::test_borrow_book PASSED                       [ 80%]
+test_library.py::TestLoan::test_borrow_unavailable_book PASSED           [ 85%]
+test_library.py::TestLoan::test_multiple_loans PASSED                    [ 90%]
+test_library.py::TestLoan::test_return_book PASSED                       [ 95%]
+test_library.py::TestLoan::test_return_nonexistent_book PASSED           [100%]
+
+============================== 21 passed in 0.02s ==============================
+```
+
