@@ -1,5 +1,5 @@
 import unittest
-from library import Book, BookList, User
+from library import Book, BookList, User, UserList
 
 
 class TestBook(unittest.TestCase):
@@ -69,6 +69,32 @@ class TestUser(unittest.TestCase):
         User("jdoe", "John", "Doe", 123, "Main Street", "12345", "jdoe@me.com", "1990-01-01")
         with self.assertRaises(ValueError):
             User("jdoe", "John", "Doe", 123, "Main Street", "12345", "jdoe@me.com", "1990-01-01")
+
+
+class TestUserList(unittest.TestCase):
+    def setUp(self):
+        User.usernames = []  # Reset usernames list
+        self.user_list = UserList()
+        self.user1 = User("jdoe", "John", "Doe", 123, "Main Street", "12345", "jdoe@me.com", "1990-01-01")
+        self.user2 = User("johnd", "Jane", "Doe", 456, "High Street", "67890", "jane@me.com", "1995-05-15")
+
+    def test_add_user(self):
+        self.user_list.add_user(self.user1)
+        self.assertEqual(self.user_list.count_users(), 1)
+
+    def test_add_duplicate_user(self):
+        self.user_list.add_user(self.user1)
+        with self.assertRaises(ValueError):
+            self.user_list.add_user(self.user1)
+
+    def test_remove_user(self):
+        self.user_list.add_user(self.user1)
+        self.user_list.remove_user("John")
+        self.assertEqual(self.user_list.count_users(), 0)
+
+    def test_remove_nonexistent_user(self):
+        with self.assertRaises(ValueError):
+            self.user_list.remove_user("Nonexistent")
 
 
 
