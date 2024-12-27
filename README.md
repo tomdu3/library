@@ -1,5 +1,27 @@
 # Library Management System
 
+## Table of Contents
+
+<!-- TOC -->
+
+- [Library Management System](#library-management-system)
+    - [Table of Contents](#table-of-contents)
+    - [Project Description](#project-description)
+        - [Task 1:](#task-1)
+            - [Class - Books:](#class---books)
+            - [Class - BookList:](#class---booklist)
+            - [Class - Users:](#class---users)
+            - [Class - UserList:](#class---userlist)
+            - [Class - Loans:](#class---loans)
+        - [Other features:](#other-features)
+        - [Task 2](#task-2)
+            - [Create a Class diagram:](#create-a-class-diagram)
+        - [Task 3](#task-3)
+    - [Testing](#testing)
+    - [UML Diagram](#uml-diagram)
+
+<!-- /TOC -->
+
 ## Project Description
 
 The project consists of 3 tasks:
@@ -158,4 +180,10 @@ test_library.py::TestLoan::test_return_nonexistent_book PASSED           [100%]
 
 ============================== 21 passed in 0.02s ==============================
 ```
+
+## UML Diagram
+
+UML Diagram was made in [MarkDown](https://www.markdownguide.org/) tables and [Mermaid](https://mermaid-js.github.io/mermaid/#/) diagrams.
+
+[Link to the UML Diagram](class_tables.md)
 
