@@ -1,5 +1,5 @@
 import unittest
-from library import Book, BookList
+from library import Book, BookList, User
 
 
 class TestBook(unittest.TestCase):
@@ -47,6 +47,29 @@ class TestBookList(unittest.TestCase):
     def test_search_nonexistent_book(self):
         with self.assertRaises(ValueError):
             self.book_list.search_book(title="Nonexistent Book")
+
+
+class TestUser(unittest.TestCase):
+    def setUp(self):
+        User.usernames = []  # Reset usernames list
+
+    def test_invalid_email(self):
+        with self.assertRaises(ValueError):
+            User("jdoe", "John", "Doe", 123, "Main Street", "12345", "invalid_email", "1990-01-01")
+
+    def test_invalid_dob(self):
+        with self.assertRaises(ValueError):
+            User("jdoe", "John", "Doe", 123, "Main Street", "12345", "jdoe@me.com", "01-01-1990")
+
+    def test_valid_user_creation(self):
+        user = User("jdoe", "John", "Doe", 123, "Main Street", "12345", "jdoe@me.com", "1990-01-01")
+        self.assertIsNotNone(user)
+
+    def test_duplicate_username(self):
+        User("jdoe", "John", "Doe", 123, "Main Street", "12345", "jdoe@me.com", "1990-01-01")
+        with self.assertRaises(ValueError):
+            User("jdoe", "John", "Doe", 123, "Main Street", "12345", "jdoe@me.com", "1990-01-01")
+
 
 
 
