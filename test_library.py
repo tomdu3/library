@@ -1,5 +1,5 @@
 import unittest
-from library import Book
+from library import Book, BookList
 
 
 class TestBook(unittest.TestCase):
@@ -18,6 +18,37 @@ class TestBook(unittest.TestCase):
         book1 = Book("Book 1", "Author 1", 2000, "Publisher 1", 1, "2000-01-01")
         book2 = Book("Book 2", "Author 2", 2001, "Publisher 2", 2, "2001-01-01")
         self.assertNotEqual(book1.book_id, book2.book_id)
+
+
+class TestBookList(unittest.TestCase):
+    def setUp(self):
+        self.book_list = BookList()
+        self.book1 = Book("1984", "George Orwell", 1949, "Secker & Warburg", 3, "1949-06-08")
+        self.book2 = Book("The Great Gatsby", "F. Scott Fitzgerald", 1925, "Scribner", 5, "1925-04-10")
+
+    def test_add_book(self):
+        self.book_list.add_book(self.book1)
+        self.assertEqual(self.book_list.total_books, 1)
+
+    def test_add_duplicate_book(self):
+        self.book_list.add_book(self.book1)
+        with self.assertRaises(ValueError):
+            self.book_list.add_book(self.book1)
+
+    def test_remove_book(self):
+        self.book_list.add_book(self.book1)
+        self.book_list.remove_book(self.book1.book_id)
+        self.assertEqual(self.book_list.total_books, 0)
+
+    def test_remove_nonexistent_book(self):
+        with self.assertRaises(ValueError):
+            self.book_list.remove_book(9999)
+
+    def test_search_nonexistent_book(self):
+        with self.assertRaises(ValueError):
+            self.book_list.search_book(title="Nonexistent Book")
+
+
 
 
 if __name__ == "__main__":
