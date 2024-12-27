@@ -1,5 +1,138 @@
 
-# UML Class Diagram: Library Management System (Updated)
+# UML Class Diagram: Library Management System
+
+<!-- TOC -->
+
+- [UML Class Diagram: Library Management System](#uml-class-diagram-library-management-system)
+    - [A Mermaid Class Diagram](#a-mermaid-class-diagram)
+    - [Classes](#classes)
+        - [Book](#book)
+        - [BookList](#booklist)
+        - [User](#user)
+        - [UserList](#userlist)
+        - [Loan](#loan)
+        - [LibraryDashboard](#librarydashboard)
+
+<!-- /TOC -->
+
+
+## A Mermaid Class Diagram
+
+```mermaid
+classDiagram
+    class Book {
+        - used_ids: List[int]
+        - book_id: int
+        - title: str
+        - author: str
+        - year: int
+        - publisher: str
+        - copies: int
+        - available_copies: int
+        - publication_date: str
+        + __init__()
+        + generate_book_id(): int
+        + validate_inputs(year, copies, publication_date): None
+        + set_title(title: str): None
+        + get_title(): str
+        + set_author(author: str): None
+        + get_author(): str
+        + set_year(year: int): None
+        + get_year(): int
+        + set_publisher(publisher: str): None
+        + get_publisher(): str
+        + set_copies(copies: int): None
+        + get_copies(): int
+        + get_available_copies(): int
+        + __str__(): str
+    }
+
+    class BookList {
+        - books: Dict[int, Book]
+        + __init__()
+        + add_book(book: Book): None
+        + search_book(**kwargs): Book
+        + remove_book(book_id: int): None
+        + total_books: int
+        + __str__(): str
+    }
+
+    class User {
+        - usernames: List[str]
+        - username: str
+        - firstname: str
+        - surname: str
+        - house_number: str
+        - street_name: str
+        - postcode: str
+        - email: str
+        - dob: str
+        + __init__()
+        + check_username(username: str): None
+        + get_username(): str
+        + get_firstname(): str
+        + set_firstname(firstname: str): None
+        + get_lastname(): str
+        + set_lastname(lastname: str): None
+        + get_address(): str
+        + set_address(house_number: str, street_name: str, postcode: str): None
+        + validate_email(email: str): None
+        + get_email(): str
+        + set_email(email: str): None
+        + validate_dob(dob: str): None
+        + get_dob(): str
+        + set_dob(dob: str): None
+        + __str__(): str
+    }
+
+    class UserList {
+        - users: Dict[str, User]
+        + __init__()
+        + add_user(user: User): None
+        + remove_user(firstname: str): None
+        + count_users(): int
+        + __str__(): str
+    }
+
+    class Loan {
+        - loans: Dict[str, List[Book]]
+        + __init__()
+        + borrow_book(username: str, book: Book): None
+        + return_book(username: str, book: Book): None
+        + user_books_count(username: str): int
+        + __str__(): str
+    }
+
+    class LibraryDashboard {
+        - book_list: BookList
+        - user_list: UserList
+        - loan: Loan
+        + __init__()
+        + display_menu(): None
+        + manage_books(): None
+        + manage_users(): None
+        + manage_loans(): None
+        + add_book(): None
+        + search_book(): None
+        + remove_book(): None
+        + view_all_books(): None
+        + add_user(): None
+        + remove_user(): None
+        + view_all_users(): None
+        + borrow_book(): None
+        + return_book(): None
+        + view_user_loans(): None
+        + run(): None
+    }
+
+    LibraryDashboard --> BookList : uses
+    LibraryDashboard --> UserList : uses
+    LibraryDashboard --> Loan : uses
+    BookList --> Book : contains
+    Loan --> Book : references
+    Loan --> User : references
+    UserList --> User : contains
+```
 
 ## Classes
 
@@ -133,118 +266,3 @@
 | `run()`                    | None                     | Run the library dashboard                 |
 
 
-```mermaid
-classDiagram
-    class Book {
-        - used_ids: List[int]
-        - book_id: int
-        - title: str
-        - author: str
-        - year: int
-        - publisher: str
-        - copies: int
-        - available_copies: int
-        - publication_date: str
-        + __init__()
-        + generate_book_id(): int
-        + validate_inputs(year, copies, publication_date): None
-        + set_title(title: str): None
-        + get_title(): str
-        + set_author(author: str): None
-        + get_author(): str
-        + set_year(year: int): None
-        + get_year(): int
-        + set_publisher(publisher: str): None
-        + get_publisher(): str
-        + set_copies(copies: int): None
-        + get_copies(): int
-        + get_available_copies(): int
-        + __str__(): str
-    }
-
-    class BookList {
-        - books: Dict[int, Book]
-        + __init__()
-        + add_book(book: Book): None
-        + search_book(**kwargs): Book
-        + remove_book(book_id: int): None
-        + total_books: int
-        + __str__(): str
-    }
-
-    class User {
-        - usernames: List[str]
-        - username: str
-        - firstname: str
-        - surname: str
-        - house_number: str
-        - street_name: str
-        - postcode: str
-        - email: str
-        - dob: str
-        + __init__()
-        + check_username(username: str): None
-        + get_username(): str
-        + get_firstname(): str
-        + set_firstname(firstname: str): None
-        + get_lastname(): str
-        + set_lastname(lastname: str): None
-        + get_address(): str
-        + set_address(house_number: str, street_name: str, postcode: str): None
-        + validate_email(email: str): None
-        + get_email(): str
-        + set_email(email: str): None
-        + validate_dob(dob: str): None
-        + get_dob(): str
-        + set_dob(dob: str): None
-        + __str__(): str
-    }
-
-    class UserList {
-        - users: Dict[str, User]
-        + __init__()
-        + add_user(user: User): None
-        + remove_user(firstname: str): None
-        + count_users(): int
-        + __str__(): str
-    }
-
-    class Loan {
-        - loans: Dict[str, List[Book]]
-        + __init__()
-        + borrow_book(username: str, book: Book): None
-        + return_book(username: str, book: Book): None
-        + user_books_count(username: str): int
-        + __str__(): str
-    }
-
-    class LibraryDashboard {
-        - book_list: BookList
-        - user_list: UserList
-        - loan: Loan
-        + __init__()
-        + display_menu(): None
-        + manage_books(): None
-        + manage_users(): None
-        + manage_loans(): None
-        + add_book(): None
-        + search_book(): None
-        + remove_book(): None
-        + view_all_books(): None
-        + add_user(): None
-        + remove_user(): None
-        + view_all_users(): None
-        + borrow_book(): None
-        + return_book(): None
-        + view_user_loans(): None
-        + run(): None
-    }
-
-    LibraryDashboard --> BookList : uses
-    LibraryDashboard --> UserList : uses
-    LibraryDashboard --> Loan : uses
-    BookList --> Book : contains
-    Loan --> Book : references
-    Loan --> User : references
-    UserList --> User : contains
-```
