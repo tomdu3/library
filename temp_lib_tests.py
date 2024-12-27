@@ -1,3 +1,12 @@
+"""These tests were part of the `library.py` file.
+    They were used to test the functionality of the classes.
+    Most of them are now included in the `test_library.py` file.
+    This file is only included for reference and for testing purposes.
+    It is not part of the final project."""
+
+from library import Book, BookList, User, UserList, Loan  # Imported classes from library.py
+"""These imports were added in order to make these tests work."""
+
 #############################
 # Testing of the Book class #
 #############################
