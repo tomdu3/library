@@ -123,10 +123,10 @@ class BookList:
                 return book
         raise ValueError("Book not found.")
 
-    def remove_book(self, id):
+    def remove_book(self, book_id):
         """Remove a book from the collection by its ID."""
-        if id in self.books:
-            del self.books[id]
+        if book_id in self.books:
+            del self.books[book_id]
         else:
             raise ValueError("Book not found in the collection.")
 
