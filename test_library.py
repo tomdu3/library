@@ -1,5 +1,5 @@
 import unittest
-from library import Book, BookList, User, UserList
+from library import Book, BookList, User, UserList, Loan
 
 
 class TestBook(unittest.TestCase):
@@ -97,7 +97,37 @@ class TestUserList(unittest.TestCase):
             self.user_list.remove_user("Nonexistent")
 
 
+class TestLoan(unittest.TestCase):
+    def setUp(self):
+        self.loan = Loan()
+        self.book1 = Book("1984", "George Orwell", 1949, "Secker & Warburg", 1, "1949-06-08")
+        self.book2 = Book("Romeo and Juliet", "William Shakespeare", 1597, "Penguin Classics", 2, "1597-05-16")
+        self.user = "jdoe"
 
+    def test_borrow_book(self):
+        self.loan.borrow_book(self.user, self.book1)
+        self.assertEqual(self.loan.user_books_count(self.user), 1)
+        self.assertEqual(self.book1.available_copies, 0)
+
+    def test_borrow_unavailable_book(self):
+        self.book1.available_copies = 0
+        with self.assertRaises(ValueError):
+            self.loan.borrow_book(self.user, self.book1)
+
+    def test_return_book(self):
+        self.loan.borrow_book(self.user, self.book1)
+        self.loan.return_book(self.user, self.book1)
+        self.assertEqual(self.loan.user_books_count(self.user), 0)
+        self.assertEqual(self.book1.available_copies, 1)
+
+    def test_return_nonexistent_book(self):
+        with self.assertRaises(ValueError):
+            self.loan.return_book(self.user, self.book1)
+
+    def test_multiple_loans(self):
+        self.loan.borrow_book(self.user, self.book1)
+        self.loan.borrow_book(self.user, self.book2)
+        self.assertEqual(self.loan.user_books_count(self.user), 2)
 
 
 if __name__ == "__main__":
