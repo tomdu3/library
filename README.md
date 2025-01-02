@@ -1,6 +1,7 @@
 # Library Management System
 
 [Link to the Repository](https://github.com/tomdu3/library)
+
 ## Table of Contents
 
 <!-- TOC -->
