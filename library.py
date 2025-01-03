@@ -61,6 +61,7 @@ class Book:
 
     def set_year(self, year):
         """Set the year of the book."""
+        # TODO: Add validatation
         self.year = year
 
     def get_year(self):
@@ -77,6 +78,8 @@ class Book:
 
     def set_copies(self, copies):
         """Set the number of copies of the book."""
+        # NOTE: It could be refined in future versions
+        # TODO: add validatation
         self.copies = copies
         self.available_copies = copies
 
