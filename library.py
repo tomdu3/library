@@ -21,9 +21,9 @@ class Book:
     def generate_book_id(self):
         """Generate a unique book_id."""
         book_id = random.randint(1000, 9999)  # generate a book_id as a random 5 digit number
-        while book_id in self.used_ids:  # check if the book_id has already been used and regenerates a new one
+        while book_id in Book.used_ids:  # check if the book_id has already been used and regenerates a new one
             book_id = random.randint(1000, 9999)  # generate a new book_id
-        self.used_ids.append(book_id)  # add the book_id to the used_ids list, so it can be checked later
+        Book.used_ids.append(book_id)  # add the book_id to the used_ids list, so it can be checked later
         return book_id
         
 
@@ -108,16 +108,16 @@ class BookList:
 
     def add_book(self, book):
         """Add a book to the collection."""
+        if not isinstance(book, Book):  # check if the book is an instance of the Book class
+            print("Book not added.")
+            raise ValueError("Book must be an instance of the Book class.")
+
         if book.book_id not in self.books:  # check if the book has already been added 
             self.books[book.book_id] = book  # add the book to the dictionary
             print(f"Book '{book.title}' by {book.author} added successfully!")
         else:
             print("Book not added.")
             raise ValueError("Book already exists in the collection.")
-
-        if not isinstance(book, Book):  # check if the book is an instance of the Book class
-            print("Book not added.")
-            raise ValueError("Book must be an instance of the Book class.")
 
     def search_book(self, **kwargs):
         """Search for a book in the collection by keyword arguments."""
@@ -139,7 +139,7 @@ class BookList:
         return len(self.books)
 
     def __str__(self):
-        return "No books in the collection" if len(self.books) == 0 else f"BookList: {[(book.title,book.author) for book in self.books.values()]}, Total Books: {self.total_books}"
+        return "No books in the collection" if len(self.books) == 0 else f"BookList: {[(book.title,book.author, book.book_id) for book in self.books.values()]}, Total Books: {self.total_books}"
 
 
 class User:
@@ -205,6 +205,7 @@ class User:
         return self.email
     
     def set_email(self, email):
+        # TODO: validator for the email
         """Sets the email address of the user."""
         self.email = email
     
@@ -219,6 +220,7 @@ class User:
         return self.dob
     
     def set_dob(self, dob):
+        # TODO: validator for the date
         """Sets the date of birth of the user."""
         self.dob = dob
 
@@ -233,6 +235,7 @@ class UserList:
         self.users = {}
 
     def add_user(self, user):
+        # TODO: validate if the user is an instance of the class User
         if user.username not in self.users:
             self.users[user.username] = user
         else:
@@ -285,9 +288,6 @@ class Loan:
 
     def __str__(self):
         return f"Loan: {[(username, [book.title for book in books]) for username, books in self.loans.items()]}"
-
-
-# TODO: Make a dashboard of a library
 
 
 class LibraryDashboard:
