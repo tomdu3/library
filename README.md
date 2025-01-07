@@ -7,20 +7,20 @@
 <!-- TOC -->
 
 - [Library Management System](#library-management-system)
-    - [Table of Contents](#table-of-contents)
-    - [Project Description](#project-description)
-        - [Task 1:](#task-1)
-            - [Class - Books:](#class---books)
-            - [Class - BookList:](#class---booklist)
-            - [Class - Users:](#class---users)
-            - [Class - UserList:](#class---userlist)
-            - [Class - Loans:](#class---loans)
-        - [Other features:](#other-features)
-        - [Task 2](#task-2)
-            - [Create a Class diagram:](#create-a-class-diagram)
-        - [Task 3](#task-3)
-    - [Testing](#testing)
-    - [UML Diagram](#uml-diagram)
+  - [Table of Contents](#table-of-contents)
+  - [Project Description](#project-description)
+    - [Task 1:](#task-1)
+      - [Class - Books:](#class---books)
+      - [Class - BookList:](#class---booklist)
+      - [Class - Users:](#class---users)
+      - [Class - UserList:](#class---userlist)
+      - [Class - Loans:](#class---loans)
+    - [Other features:](#other-features)
+    - [Task 2](#task-2)
+      - [Create a Class diagram:](#create-a-class-diagram)
+    - [Task 3](#task-3)
+  - [Testing](#testing)
+  - [UML Diagram](#uml-diagram)
 
 <!-- /TOC -->
 
@@ -150,6 +150,7 @@ To run the tests, execute the following command in the project directory:
 `pytest` or `pytest --verbose`
 
 This is the output of the tests:
+
 ```bash
 ============================= test session starts ==============================
 platform linux -- Python 3.12.7, pytest-7.4.4, pluggy-1.0.0 -- /home/tom/anaconda3/bin/python
@@ -187,5 +188,6 @@ test_library.py::TestLoan::test_return_nonexistent_book PASSED           [100%]
 
 UML Diagram was made in [MarkDown](https://www.markdownguide.org/) tables and [Mermaid](https://mermaid-js.github.io/mermaid/#/) diagrams.
 
-[Link to the UML Diagram](class_tables.md)
-
+- [Link to the UML Diagram](class_tables.md)
+- [Link to Lucid Chart](https://lucid.app/lucidchart/0aa9669d-b24f-49ac-94de-a36387722252/view)
+- [Link to PDF Version of Lucid Chart](./ULM-Library.pdf)
